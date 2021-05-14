@@ -3,10 +3,16 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         JACOB.vy = -150
     }
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`portal`, function (sprite, location) {
+    game.over(true, effects.bubbles)
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile3`, function (sprite, location) {
+    game.over(false, effects.melt)
+})
 let JACOB: Sprite = null
 scene.setBackgroundColor(9)
 JACOB = sprites.create(assets.image`JACOB`, SpriteKind.Player)
-controller.moveSprite(JACOB, 90, 100)
+controller.moveSprite(JACOB, 80, 100)
 tiles.setTilemap(tilemap`level4`)
 JACOB.ay += 200
 scene.cameraFollowSprite(JACOB)
