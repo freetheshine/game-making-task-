@@ -18,9 +18,13 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.COIN, function (sprite, otherSpr
 })
 function startLevel () {
     JACOB = sprites.create(assets.image`JACOB`, SpriteKind.Player)
-    controller.moveSprite(JACOB, 80, 100)
-    tiles.setTilemap(tilemap`level4`)
-    JACOB.ay += 200
+    controller.moveSprite(JACOB, 80, 0)
+    if (current_Level) {
+        tiles.setTilemap(tilemap`level4`)
+    } else {
+        tiles.setTilemap(tilemap`level5`)
+    }
+    JACOB.ay += 350
     scene.cameraFollowSprite(JACOB)
     for (let value of tiles.getTilesByType(assets.tile`myTile4`)) {
         COIN = sprites.create(img`
@@ -46,6 +50,7 @@ function startLevel () {
 }
 let COIN: Sprite = null
 let JACOB: Sprite = null
+let current_Level = 0
 scene.setBackgroundColor(9)
 scene.setBackgroundImage(img`
     ................................................................................................................................................................
@@ -170,4 +175,4 @@ scene.setBackgroundImage(img`
     ................................................................................................................................................................
     `)
 startLevel()
-let current_Level = 0
+current_Level = 0
