@@ -3,10 +3,11 @@ namespace SpriteKind {
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (JACOB.vy == 0) {
-        JACOB.vy = -150
+        JACOB.vy = -160
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`portal`, function (sprite, location) {
+    current_Level += 1
     startLevel()
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile3`, function (sprite, location) {
@@ -17,15 +18,15 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.COIN, function (sprite, otherSpr
     otherSprite.destroy()
 })
 function startLevel () {
-    JACOB = sprites.create(assets.image`JACOB`, SpriteKind.Player)
-    controller.moveSprite(JACOB, 80, 0)
     if (current_Level) {
         tiles.setTilemap(tilemap`level4`)
     } else {
-        tiles.setTilemap(tilemap`level5`)
+        tiles.setTilemap(tilemap`level 2`)
     }
     JACOB.ay += 350
+    info.setLife(5)
     scene.cameraFollowSprite(JACOB)
+    tiles.placeOnRandomTile(JACOB, assets.tile`myTile6`)
     for (let value of tiles.getTilesByType(assets.tile`myTile4`)) {
         COIN = sprites.create(img`
             . . . f f f f f f f . . . . . . 
@@ -46,6 +47,9 @@ function startLevel () {
             . . . . . . . . . . . . . . . . 
             `, SpriteKind.COIN)
         tiles.placeOnTile(COIN, value)
+    }
+    for (let value of tiles.getTilesByType(assets.tile`myTile5`)) {
+    	
     }
 }
 let COIN: Sprite = null
@@ -174,5 +178,7 @@ scene.setBackgroundImage(img`
     ................................................................................................................................................................
     ................................................................................................................................................................
     `)
+current_Level = 1
+JACOB = sprites.create(assets.image`JACOB`, SpriteKind.Player)
+controller.moveSprite(JACOB, 89, 0)
 startLevel()
-current_Level = 0
