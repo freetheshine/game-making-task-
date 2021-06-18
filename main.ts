@@ -7,7 +7,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`portal`, function (sprite, location) {
-    current_Level += 1
+    current_Level = 2
     startLevel()
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile3`, function (sprite, location) {
@@ -40,7 +40,7 @@ sprites.onDestroyed(SpriteKind.Enemy, function (sprite) {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.Enemy)
-    tiles.placeOnTile(mySprite, value)
+    tiles.placeOnRandomTile(mySprite, assets.tile`myTile5`)
     mySprite.follow(JACOB, 22)
 })
 function startLevel () {
@@ -92,11 +92,10 @@ function startLevel () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.Enemy)
-    tiles.placeOnTile(mySprite, value)
+    tiles.placeOnRandomTile(mySprite, assets.tile`myTile5`)
     mySprite.follow(JACOB, 30)
 }
 let COIN: Sprite = null
-let value: tiles.Location = null
 let mySprite: Sprite = null
 let JACOB: Sprite = null
 let current_Level = 0
