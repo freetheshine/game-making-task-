@@ -13,12 +13,38 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`portal`, function (sprite, lo
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile3`, function (sprite, location) {
     game.over(false, effects.melt)
 })
+sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSprite) {
+    info.changeLifeBy(-1)
+    mySprite.destroy()
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.COIN, function (sprite, otherSprite) {
     info.changeScoreBy(1)
     otherSprite.destroy()
 })
+sprites.onDestroyed(SpriteKind.Enemy, function (sprite) {
+    mySprite = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . f f f f f . . . . . . . . 
+        . f f 5 f 5 f 5 f . . . . . . . 
+        f f 5 5 f 5 f 5 5 f . . . . . . 
+        f 5 5 5 f 5 f 5 5 f f . f f f f 
+        f f 5 f f 5 f 5 5 5 f f f f . . 
+        f 5 5 5 f 5 f 5 5 5 f f f f . . 
+        f f 5 5 f 5 f 5 5 f f . . . . . 
+        . f f f f f f f f f . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Enemy)
+    tiles.placeOnTile(mySprite, value)
+    mySprite.follow(JACOB, 22)
+})
 function startLevel () {
-    if (current_Level) {
+    if (current_Level == 1) {
         tiles.setTilemap(tilemap`level4`)
     } else {
         tiles.setTilemap(tilemap`level 2`)
@@ -48,11 +74,30 @@ function startLevel () {
             `, SpriteKind.COIN)
         tiles.placeOnTile(COIN, value)
     }
-    for (let value of tiles.getTilesByType(assets.tile`myTile5`)) {
-    	
-    }
+    mySprite = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . f f f f f f f f . . . . . . 
+        . f 5 5 f 5 5 f 5 f f . . . . . 
+        f f 5 5 f 5 5 f 5 5 f . . . . . 
+        f 5 5 5 f 5 5 f 5 5 f f f f f f 
+        f f 5 f f 5 5 f 5 5 5 f f f f f 
+        f 5 5 5 f 5 5 f 5 5 f f . . . . 
+        f 5 5 5 f 5 5 f f f f . . . . . 
+        f f f f f f f f f . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Enemy)
+    tiles.placeOnTile(mySprite, value)
+    mySprite.follow(JACOB, 30)
 }
 let COIN: Sprite = null
+let value: tiles.Location = null
+let mySprite: Sprite = null
 let JACOB: Sprite = null
 let current_Level = 0
 scene.setBackgroundColor(9)
@@ -182,3 +227,4 @@ current_Level = 1
 JACOB = sprites.create(assets.image`JACOB`, SpriteKind.Player)
 controller.moveSprite(JACOB, 89, 0)
 startLevel()
+current_Level = 1
